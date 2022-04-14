@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vat.Services", "VatService\Vat.Services.csproj", "{3DEDC747-5762-4E94-801A-52BFA9D07A86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VatService.Test", "VatService.Test\VatService.Test.csproj", "{FE964AD2-AC47-437B-B726-8B0E5E5D5C4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DEDC747-5762-4E94-801A-52BFA9D07A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DEDC747-5762-4E94-801A-52BFA9D07A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DEDC747-5762-4E94-801A-52BFA9D07A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DEDC747-5762-4E94-801A-52BFA9D07A86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE964AD2-AC47-437B-B726-8B0E5E5D5C4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE964AD2-AC47-437B-B726-8B0E5E5D5C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE964AD2-AC47-437B-B726-8B0E5E5D5C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE964AD2-AC47-437B-B726-8B0E5E5D5C4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F32356C7-E6A6-43F4-82E2-33EE80E56F91}
+	EndGlobalSection
+EndGlobal
