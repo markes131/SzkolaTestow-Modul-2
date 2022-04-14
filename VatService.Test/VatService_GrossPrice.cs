@@ -60,8 +60,11 @@ public class Tests
     [Test]
     public void GivingProductWithNetPriceViaVatProvider_ShouldReturnGrossPriceOfProductBasedOnProductType(double netPrice, string productType, double expected)
     {
-        //IVatProvider _vatProvider;
-        //_vatProvider = Substitute.For<IVatProvider>();
+
+        // Dla wersji z NSubstitute
+
+        // IVatProvider _vatProvider;
+        // _vatProvider = Substitute.For<IVatProvider>();
 
         //foreach (KeyValuePair<string, int> typePair in productTypes)
         //{
@@ -78,8 +81,6 @@ public class Tests
         //        throw new ArgumentException("Wrong Value in Dictionary");
         //    }
         //}
-
-        //List<string> productTypeWithLowVat = new List<string> { "Food", "Books" };
 
         //given
         Product product = new Product(random.Next(), netPrice, productType);
@@ -99,28 +100,36 @@ public class Tests
                 throw new ArgumentException("Wrong Value in Dictionary");
             }
 
-            //mockVatProvider.Setup(x => x.VatForType(productType)).Returns(() =>
-            //{
-            //    if (productTypeWithLowVat.Contains(product.ProductType))
-            //    {
-            //        return 0.08;
-            //    }
-            //    else
-            //    {
-            //        return 0.23;
-            //    }
-            //    return 0;
-            //});
+            // Dla wersji z list¹ zamiast Dictionary
+
+        //List<string> productTypeWithLowVat = new List<string> { "Food", "Books" };
+
+        //mockVatProvider.Setup(x => x.VatForType(productType)).Returns(() =>
+        //{
+        //    if (productTypeWithLowVat.Contains(product.ProductType))
+        //    {
+        //        return 0.08;
+        //    }
+        //    else
+        //    {
+        //        return 0.23;
+        //    }
+        //    return 0;
+        //});
 
         VatServ vatServWithMock = new VatServ(mockVatProvider.Object);
+
+        // dla wersji z NSubstitute
         //VatServ vatServWithMock = new VatServ(_vatProvider);
 
         //when 
-
         result = vatServWithMock.GrossPriceForVatProvider(product);
 
-        //assert
+        //assert przy wykorzystaniu FluentAssertion
         result.Should().Be(expected);
+
+        // dla zwyk³ej assercji z NUnit
+       // Assert.AreEqual(result, expected);
     }
 
 
@@ -135,10 +144,12 @@ public class Tests
         Product product = new(0, 100);
         _vatService.VatValue = vatValue;
 
+        // dla wersji z Assert NUnit
         // Assert.Throws<ArgumentOutOfRangeException>(() => _vatService.GrossPriceForDefaultVat(product));
 
         Action act = () => _vatService.GrossPriceForDefaultVat(product);
 
+        // Wersja assert dla FluentAssertion
         act.Should().Throw<ArgumentOutOfRangeException>();
     }
 
@@ -156,8 +167,10 @@ public class Tests
 
         Action act = () => product = new Product(id, randomValue);
 
+        // Wersja assert dla FluentAssertion
         act.Should().Throw<ArgumentOutOfRangeException>();
 
+        // dla wersji z Assert NUnit
         // Assert.Throws<ArgumentOutOfRangeException>(() => product = new Product(id, randomValue));
     }
 }
