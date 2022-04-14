@@ -13,8 +13,7 @@ namespace VatServices
         public double NetPrice { get; set; }
 
         public string ProductType { get; set; }
-
-
+        
         public Product(int id, double netPrice)
         {
             if (id < 0) {
@@ -40,7 +39,7 @@ namespace VatServices
                 ProductType = productType;
             }
             else {
-                throw new ArgumentNullException(nameof(productType), "Product has to has a type");
+                throw new ArgumentNullException(nameof(productType), "Product has to have a type");
             }
             if (id < 0)
             {
@@ -61,14 +60,5 @@ namespace VatServices
                 NetPrice = netPrice;
             }
         }
-
-        //public enum ProductType
-        //{
-        //    Furniture,
-        //    Food,
-        //    Electronic,
-        //    Books
-        //}
-
     }
 }
