@@ -14,11 +14,22 @@ public class Tests
 {
 
     VatServ _vatService;
+    Dictionary<string, int> productTypes;
 
     [SetUp]
     public void Setup()
     {
         this._vatService = new VatServ();
+
+        productTypes = new Dictionary<string, int>()
+        {
+
+            { "Food", 0},
+            { "Electronic", 1},
+            { "Books", 0},
+            { "Furniture", 1}
+
+        };
     }
 
     double result;
@@ -38,6 +49,7 @@ public class Tests
         result.Should().Be(expected);
     }
 
+
     readonly Random random = new Random();
 
     [TestCase(100, "Food", 108d)]
@@ -48,19 +60,8 @@ public class Tests
     [Test]
     public void GivingProductWithNetPriceViaVatProvider_ShouldReturnGrossPriceOfProductBasedOnProductType(double netPrice, string productType, double expected)
     {
-
         //IVatProvider _vatProvider;
         //_vatProvider = Substitute.For<IVatProvider>();
-
-        Dictionary<string, int> productTypes = new Dictionary<string, int>()
-        {
-
-            { "Food", 0},
-            { "Electronic", 1},
-            { "Books", 0},
-            { "Furniture", 1}
-
-        };
 
         //foreach (KeyValuePair<string, int> typePair in productTypes)
         //{
