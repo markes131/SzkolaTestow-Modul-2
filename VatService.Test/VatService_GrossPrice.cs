@@ -6,7 +6,6 @@ using Vat.Services;
 using Moq;
 using System.Collections.Generic;
 using NSubstitute;
-using Microsoft.Extensions.Logging;
 
 namespace VatService.Test;
 
@@ -35,21 +34,22 @@ public class Tests
         mockLogger = new Mock<ILoggingService>();
     }
 
-
-    [TestCase(0, 100, 0.23, /*Expected = */ 123d)]
-    [TestCase(0, 200, 0.23, /*Expected = */ 246d)]
-    [TestCase(0, 100, 0.08, /*Expected = */ 108d)]
+    // product INDEX, productNETPRICE, vattVALUE. productTYPE, expectedGrossProductVALUE
+    [TestCase(0, 100, 0.23, "Books", /*Expected = */ 123d)]
+    [TestCase(0, 200, 0.23, "Books", /*Expected = */ 246d)]
+    [TestCase(0, 100, 0.08, "Books", /*Expected = */ 108d)]
 
     [Test]
-    public void GivingProductWithNetPriceAndVatValue_ShouldReturnGrossPriceOfProduct(int index, double productNetPrice, double vatValue, double expected)
+    // BEFORE MODULE 4 GivingRandomProductWithSpecificTypeAndNetPriceAndVatValue_ShouldReturnGrossPriceOfProduct
+    public void AttemptionToCalculateGrossPriceOfProductWithSpecificTypeAndNetPriceAndVatValue_ShouldReturnRightGrossPriceOfProduct(int index, double productNetPrice, double vatValue, string productType, double expectedGrossProductValue)
     {
-        Product product = new(index, productNetPrice, "Books");
+        Product product = new(index, productNetPrice, productType);
         
         this._vatService = new VatServ(vatValue, mockLogger.Object);
 
         result = _vatService.GrossPriceForDefaultVat(product);
 
-        result.Should().Be(expected);
+        result.Should().Be(expectedGrossProductValue);
     }
 
 
@@ -60,10 +60,11 @@ public class Tests
     [TestCase(100, "Books", 108d)]
     [TestCase(100, "Furniture", 123d)]
 
-    [Test]
-    public void GivingProductWithNetPriceViaVatProvider_ShouldReturnGrossPriceOfProductBasedOnProductType(double netPrice, string productType, double expected)
-    {
+    [Test] 
 
+    // THAT NAME WAS BEFORE MODULE 4 GivingProductWithNetPriceViaVatProvider_ShouldReturnGrossPriceOfProductBasedOnProductType
+    public void AttemptionToCalculateGrossPrizeOfProductWithSpecificNetPriceAndTypeProvidesViaMockedVatProvider_ShouldReturnGrossPriceOfProductCalculatedWithRightVatValue(double netPrice, string productType, double expected)
+    {
         // Dla wersji z NSubstitute
         // IVatProvider _vatProvider;
         // _vatProvider = Substitute.For<IVatProvider>();
@@ -140,7 +141,6 @@ public class Tests
         // sprawdzenie czy logger wywo³a³ metodê Info z odpowiedni¹ wiadomoœci¹ dok³adnie jeden raz
         mockLogger.Verify(x => x.Info("Recieved VatValue"));
         mockLogger.Verify(x => x.Info("Calculated Gross Price for product"));
-        mockLogger.Verify(x => x.Info("I am here"));
     }
 
 
@@ -150,7 +150,8 @@ public class Tests
     [TestCase(3)]
 
     [Test]
-    public void GivingProductWithVatAboveAcceptedValue_ShouldThrowArgumentOutOfRangeException(double vatValue)
+    // BEFORE MODULE 4 GivingProductWithVatValueAboveAcceptionAmount_ShouldThrowArgumentOutOfRangeException
+    public void AttemptionToCalculateGrossProductPriceWithVatValueAboveAcceptableAmount_ShouldThrowArgumentOutOfRangeException(double vatValue)
     {
         Product product = new(0, 100);
 
@@ -170,9 +171,7 @@ public class Tests
         act.Should().Throw<ArgumentOutOfRangeException>();
 
         mockLogger.Verify(log => log.Info("Gross Price For Default Vat"));
-        mockLogger.Verify(log => log.Info("I am here"));
         mockLogger.Verify(log => log.Error("Jakis blad"));
-
     }
 
 
@@ -180,8 +179,9 @@ public class Tests
     [TestCase(-1000)]
     [TestCase(int.MinValue)]
 
-    [Test]
-    public void CreatingProductWithIdOutOfRange(int id)
+    // BEFORE MODULE 4 CreatingProductWithIdOutOfRange
+    [Test] 
+    public void AttemptionToCreateAProductWithIdOutOfRange_ShouldThrowArgumentOutOfRangeException(int id)
     {
         Random randomId = new();
         Double randomValue = randomId.NextDouble();

@@ -52,8 +52,6 @@ public class VatServ
 
     public double CalculateGrossPrice(double netPrice, double vatValue)
     {
-        _logger.Info("I am here");
-
         if (vatValue > 1)
         {
             _logger.Error("Jakis blad");
